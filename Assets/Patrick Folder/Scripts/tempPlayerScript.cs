@@ -41,8 +41,26 @@ public class tempPlayerScript : MonoBehaviour
  			this.transform.position = new Vector3(this.transform.position.x, this.transform.position.y, -0.6f);
  			this.transform.rotation = new Quaternion(this.transform.rotation.x, 0,0,0);
        }
- 
-    }
+	if(Input.GetMouseButtonDown(1))
+    {
+    	ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+       if(Physics.Raycast (ray, out hit,10))
+       {         
+ 		Debug.DrawLine(this.transform.position, hit.point, Color.red, 2);
+			if(hit.transform.tag == "NPC" )
+				{
+					if(hit.collider.name  == "NPC1")
+					{
+					Vector3 dis = this.transform.position - hit.transform.position ;
+					if(dis.magnitude < 2)
+					{
+					print ("you clicked the first npc");
+					}
+				}
+			}
+		 }
+	}
+ }
 	void OnTriggerEnter(Collider other)
 	{
 		if(other.gameObject.name == "4WayPortal1")
