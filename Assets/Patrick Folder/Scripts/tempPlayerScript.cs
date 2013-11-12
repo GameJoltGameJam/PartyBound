@@ -83,6 +83,7 @@ public class tempPlayerScript : MonoBehaviour
 			this.transform.position = new Vector3(-26.0f, -37.0f, -0.6f);
 			camera.enabled = false;
 			camera.transform.position = new Vector3 (-40.0f,-40.0f,-10.0f);
+			camera.transform.Rotate(0.0f,0.0f,90.0f);
 			camera.enabled = true;
 		}
 		else if(other.gameObject.name == "4WayPortal4")
@@ -90,6 +91,7 @@ public class tempPlayerScript : MonoBehaviour
 			this.transform.position = new Vector3(-14.0f,-40.0f,-0.6f);
 			camera.enabled = false;
 			camera.transform.position = new Vector3(0.0f, -40.0f,-10.0f);
+			camera.transform.Rotate(0.0f,0.0f,270.0f);
 			camera.enabled = true;
 			
 		}
