@@ -52,7 +52,7 @@ public class tempPlayerScript : MonoBehaviour
 					if(hit.collider.name  == "NPC1")
 					{
 					Vector3 dis = this.transform.position - hit.transform.position ;
-					if(dis.magnitude < 2)
+					if(dis.magnitude < 3)
 					{
 					print ("you clicked the first npc");
 					}
