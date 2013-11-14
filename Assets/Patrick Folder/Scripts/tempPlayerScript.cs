@@ -71,6 +71,23 @@ public class tempPlayerScript : MonoBehaviour
 			camera.enabled = true;
 			
 		}
+		else if(other.gameObject.name == "4WayPortal3")
+		{
+			this.transform.position = new Vector3(0.0f,-53.0f,-0.6f);
+			camera.enabled = false;
+			camera.transform.position = new Vector3(0.0f, -40.0f,-10.0f);
+			camera.enabled = true;
+			
+		}
+		else if(other.gameObject.name == "4WayPortal4")
+		{
+			this.transform.position = new Vector3(-14.0f,-40.0f,-0.6f);
+			camera.enabled = false;
+			camera.transform.position = new Vector3(0.0f, -40.0f,-10.0f);
+			camera.transform.Rotate(0.0f,0.0f,270.0f);
+			camera.enabled = true;
+			
+		}
 		else if(other.gameObject.name == "PhPortal")
 		{ 
 			this.transform.position = new Vector3(0.0f, -13.0f, -0.6f);
@@ -86,14 +103,14 @@ public class tempPlayerScript : MonoBehaviour
 			camera.transform.Rotate(0.0f,0.0f,90.0f);
 			camera.enabled = true;
 		}
-		else if(other.gameObject.name == "4WayPortal4")
-		{
-			this.transform.position = new Vector3(-14.0f,-40.0f,-0.6f);
+		
+		else if(other.gameObject.name == "BigPortal")
+		{ 
+			this.transform.position = new Vector3(-4.0f, -67.0f, -0.6f);
 			camera.enabled = false;
-			camera.transform.position = new Vector3(0.0f, -40.0f,-10.0f);
-			camera.transform.Rotate(0.0f,0.0f,270.0f);
+			camera.transform.position = new Vector3 (0.0f,-80.0f,-10.0f);
 			camera.enabled = true;
-			
 		}
+	
 	}
 }
