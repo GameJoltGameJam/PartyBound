@@ -19,8 +19,9 @@ public class tempPlayerScript : MonoBehaviour
     {
 		Instance = this;
 		dialogueObject = GameObject.FindGameObjectWithTag("chatObject");
-		dialogue = dialogueObject.GetComponent<DialogueScript>();
+		//dialogue = dialogueObject.GetComponent<DialogueScript>();
 		direction = this.transform.position;
+		camera.transform.position = new Vector3(0,80,-10);
 		inMission = talking = false;
 		Missions = new bool [10];
 	    for (int i= 0; i < 9; i++) 
@@ -33,8 +34,7 @@ public class tempPlayerScript : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate () 
     {  
-		if(!talking)
-		{
+		
 	   	if(Input.GetMouseButton(0))
    	   	{
         	ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -44,12 +44,13 @@ public class tempPlayerScript : MonoBehaviour
             	this.transform.position = Vector3.MoveTowards(this.transform.position, hit.point, moveSpeed * Time.deltaTime);
               	Debug.DrawLine(this.transform.position, hit.point, Color.blue, 2);
  	            Vector3 targetPoint = hit.point;
+					//player rotate code... 
                 Quaternion targetRotation = Quaternion.LookRotation(targetPoint - this.transform.position);
                 this.transform.rotation = Quaternion.Slerp(this.transform.rotation, targetRotation, rotateSpeed * Time.deltaTime);
     		    targetPoint.y = 0;
          	}
       	}
-		}
+		
 		if(Input.GetMouseButtonDown(1))
     	{
     		ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -81,62 +82,231 @@ public class tempPlayerScript : MonoBehaviour
 				}
 		 	}
 		}
-		if(!talking)
-		{
+	
 		this.transform.position = new Vector3(this.transform.position.x, this.transform.position.y, -0.6f);
 		this.transform.rotation = new Quaternion(0, 0,this.transform.rotation.z ,0);
-		}
+		
  	}
+	void Teleport(string name)
+	{
+		switch(name)
+		{
+		case "1":
+		{
+			this.transform.position = new Vector3(0,51,-0.6f);
+			camera.enabled = false;
+			camera.transform.position = new Vector3(0,40,-10);
+			camera.enabled = true;
+			break;
+		}
+		case "2":
+		{
+			this.transform.position = new Vector3(3,67,-0.6f);
+			camera.enabled = false;
+			camera.transform.position = new Vector3(0,80,-10);
+			camera.enabled = true;
+			break;
+		}
+		case "3":
+		{
+			this.transform.position = new Vector3(0,12,-0.6f);
+			camera.enabled = false;
+			camera.transform.position = new Vector3(0,0,-10);
+			camera.enabled = true;
+			break;
+		}
+		case "4":
+		{
+			this.transform.position = new Vector3(0,26,-0.6f);
+			camera.enabled = false;
+			camera.transform.position = new Vector3(0,40,-10);
+			camera.enabled = true;
+			break;
+		}
+		case "5":
+		{
+			this.transform.position = new Vector3(0,-27,-0.6f);
+			camera.enabled = false;
+			camera.transform.position = new Vector3(0,-40,-10);
+			camera.enabled = true;
+			break;
+		}
+		case "6":
+		{
+			this.transform.position = new Vector3(-27,0,-0.6f);
+			camera.enabled = false;
+			camera.transform.position = new Vector3(-40,0,-10);
+			camera.enabled = true;
+			break;
+		}
+		case "7":
+		{
+			this.transform.position = new Vector3(27,0,-0.6f);
+			camera.enabled = false;
+			camera.transform.position = new Vector3(40,0,-10);
+			camera.enabled = true;
+			break;
+		}
+		case "8":
+		{
+			this.transform.position = new Vector3(0,-12,-0.6f);
+			camera.enabled = false;
+			camera.transform.position = new Vector3(0,0,-10);
+			camera.enabled = true;
+			break;
+		}
+		case "9":
+		{
+			this.transform.position = new Vector3(-13,0,-0.6f);
+			camera.enabled = false;
+			camera.transform.position = new Vector3(0,0,-10);
+			camera.enabled = true;
+			break;
+		}
+		case "10":
+		{
+			this.transform.position = new Vector3(-67,3,-0.6f);
+			camera.enabled = false;
+			camera.transform.position = new Vector3(-80,0,-10);
+			camera.enabled = true;
+			break;
+		}
+		case "11":
+		{
+			this.transform.position = new Vector3(-53,0,-0.6f);
+			camera.enabled = false;
+			camera.transform.position = new Vector3(-40,0,-10);
+			camera.enabled = true;
+			break;
+		}
+		case "12":
+		{
+			this.transform.position = new Vector3(12,0,-0.6f);
+			camera.enabled = false;
+			camera.transform.position = new Vector3(0,0,-10);
+			camera.enabled = true;
+			break;
+		}
+		case "13":
+		{
+			this.transform.position = new Vector3(68.5f,0,-0.6f);
+			camera.enabled = false;
+			camera.transform.position = new Vector3(80,0,-10);
+			camera.enabled = true;
+			break;
+		}
+		case "14":
+		{
+			this.transform.position = new Vector3(53,7,-0.6f);
+			camera.enabled = false;
+			camera.transform.position = new Vector3(40,0,-10);
+			camera.enabled = true;
+			break;
+		}	
+		case "15":
+		{
+			this.transform.position = new Vector3(107,0,-0.6f);
+			camera.enabled = false;
+			camera.transform.position = new Vector3(120,0,-10);
+			camera.enabled = true;
+			break;
+		}
+		case "16":
+		{
+			this.transform.position = new Vector3(93,0,-0.6f);
+			camera.enabled = false;
+			camera.transform.position = new Vector3(80,0,-10);
+			camera.enabled = true;
+			break;
+		}
+		case "17":
+		{
+			this.transform.position = new Vector3(80,27,-0.6f);
+			camera.enabled = false;
+			camera.transform.position = new Vector3(80,40,-10);
+			camera.enabled = true;
+			break;
+		}
+		case "18":
+		{
+			this.transform.position = new Vector3(80,13,-0.6f);
+			camera.enabled = false;
+			camera.transform.position = new Vector3(80,0,-10);
+			camera.enabled = true;
+			break;
+		}
+		case "19":
+		{
+			this.transform.position = new Vector3(83,67,-0.6f);
+			camera.enabled = false;
+			camera.transform.position = new Vector3(80,80,-10);
+			camera.enabled = true;
+			break;
+		}
+		case "20":
+		{
+			this.transform.position = new Vector3(80,52,-0.6f);
+			camera.enabled = false;
+			camera.transform.position = new Vector3(80,40,-10);
+			camera.enabled = true;
+			break;
+		}
+		case "21":
+		{
+			this.transform.position = new Vector3(78,-27,-0.6f);
+			camera.enabled = false;
+			camera.transform.position = new Vector3(80,-40,-10);
+			camera.enabled = true;
+			break;
+		}
+		case "22":
+		{
+			this.transform.position = new Vector3(80,-13,-0.6f);
+			camera.enabled = false;
+			camera.transform.position = new Vector3(80,0,-10);
+			camera.enabled = true;
+			break;
+		}
+		case "23":
+		{
+			this.transform.position = new Vector3(4,-67,-0.6f);
+			camera.enabled = false;
+			camera.transform.position = new Vector3(0,-80,-10);
+			camera.enabled = true;
+			break;
+		}
+		case "24":
+		{
+			this.transform.position = new Vector3(0,-53,-0.6f);
+			camera.enabled = false;
+			camera.transform.position = new Vector3(0,-40,-10);
+			camera.enabled = true;
+			break;
+		}	
+		case "25":
+		{
+			this.transform.position = new Vector3(67,40,-0.6f);
+			camera.enabled = false;
+			camera.transform.position = new Vector3(80,40,-10);
+			camera.enabled = true;
+			break;
+		}	
+		case "26":
+		{
+			this.transform.position = new Vector3(13,40,-0.6f);
+			camera.enabled = false;
+			camera.transform.position = new Vector3(0,40,-10);
+			camera.enabled = true;
+			break;
+		}		
+		}
+			
+	}
 	void OnTriggerEnter(Collider other)
 	{
-		if(other.gameObject.name == "4WayPortal1")
+		if(other.tag == "JumpObjects")
 		{
-			this.transform.position = new Vector3(0.0f,-27.0f,-0.6f);
-			camera.enabled = false;
-			camera.transform.position = new Vector3(0.0f, -40.0f,-10.0f);
-			camera.enabled = true;
-			
+			Teleport(other.transform.name);
 		}
-		else if(other.gameObject.name == "4WayPortal3")
-		{
-			this.transform.position = new Vector3(0.0f,-53.0f,-0.6f);
-			camera.enabled = false;
-			camera.transform.position = new Vector3(0.0f, -40.0f,-10.0f);
-			camera.enabled = true;
-			
-		}
-		else if(other.gameObject.name == "4WayPortal4")
-		{
-			this.transform.position = new Vector3(-14.0f,-40.0f,-0.6f);
-			camera.enabled = false;
-			camera.transform.position = new Vector3(0.0f, -40.0f,-10.0f);
-			camera.transform.Rotate(0.0f,0.0f,270.0f);
-			camera.enabled = true;
-			
-		}
-		else if(other.gameObject.name == "PhPortal")
-		{ 
-			this.transform.position = new Vector3(0.0f, -13.0f, -0.6f);
-			camera.enabled = false;
-			camera.transform.position = new Vector3 (0.0f,0.0f,-10.0f);
-			camera.enabled = true;
-		}
-		else if(other.gameObject.name == "FhPortal")
-		{ 
-			this.transform.position = new Vector3(-26.0f, -37.0f, -0.6f);
-			camera.enabled = false;
-			camera.transform.position = new Vector3 (-40.0f,-40.0f,-10.0f);
-			camera.transform.Rotate(0.0f,0.0f,90.0f);
-			camera.enabled = true;
-		}
-		
-		else if(other.gameObject.name == "BigPortal")
-		{ 
-			this.transform.position = new Vector3(-4.0f, -67.0f, -0.6f);
-			camera.enabled = false;
-			camera.transform.position = new Vector3 (0.0f,-80.0f,-10.0f);
-			camera.enabled = true;
-		}
-	
 	}
 }
