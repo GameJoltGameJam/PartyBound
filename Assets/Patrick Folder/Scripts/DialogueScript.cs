@@ -80,20 +80,17 @@ public class DialogueScript : MonoBehaviour
 	
 	public void StartDialogue(string name)
 	{
-		playerMessage();
-
 		switch(name)
 		{
+
 			case "NPC1":
 			{
-				
-			   if (current > end)
-				{
+			if (current > end)
+			{
 				print ("calling");
 				npc1 = npc1O.GetComponent<Npc1Script>();
 				npc1.GetMission();
-
-				}
+			}
 			break;
 			}
 		}

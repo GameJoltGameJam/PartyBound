@@ -43,6 +43,7 @@ public class Npc1Script : MonoBehaviour
 				dialogue.current = 0;
 				getMission = true;
 				player.talking = false;
+				player.getchat = false;
 		}
 		if(getMission && onMission && endMission)
 		{
