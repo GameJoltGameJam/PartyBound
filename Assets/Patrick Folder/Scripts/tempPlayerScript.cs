@@ -70,34 +70,26 @@ public class tempPlayerScript : MonoBehaviour
 					
 					if(hit.collider.tag == "NPC")
 					{
-						
-
 						talking = true;
 						if(inMission)
 						{
-
 							dialogue.autoResponse();
-							
+							talking = false;
 						}
 						else if(hit.transform.name == "NPC1" && Missions[0] == false)
 						{
-							dialogue.StartDialogue("NPC1");
-							Missions[0] = true;
-							
+							dialogue.StartDialogue("NPC1");						
 						}
-					
-					}
-					if(hit.transform.tag == "Object")
-					{
-						
 					}
 				}
-		 	}
+				if(hit.transform.tag == "Object")
+				{
+						
+				}
+			}
 		}
-	
-	
-		
- 	}
+	}
+
 	void Teleport(string name)
 	{
 		switch(name)
@@ -315,10 +307,10 @@ public class tempPlayerScript : MonoBehaviour
 	}
 	void OnTriggerEnter(Collider other)
 	{
-		print ("hit something");
+	
 		if(other.gameObject.tag == "JumpObjects")
 		{
-			print ("Hit teleporter");
+		
 			Teleport(other.transform.name);
 		}
 	}
