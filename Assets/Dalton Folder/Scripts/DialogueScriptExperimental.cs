@@ -1,12 +1,12 @@
-﻿using UnityEngine;
+﻿/*using UnityEngine;
 using System.Collections;
 
-public class DialogueScript : MonoBehaviour 
+public class DialogueScriptExperimental : MonoBehaviour 
 {
-	private DialogueScript Instance;
+	public DialogueScriptExperimental Instance;
 	private tempPlayerScript player;
 	private GameObject playerObject;
-    private bool bYesNo;
+    private bool bYesNo, tempbool;
 	// Use this for initialization
 	void Start () 
 	{
@@ -55,8 +55,7 @@ public class DialogueScript : MonoBehaviour
 	
 	public int StartDialogue(string name, bool [] missions)//Returns Mission Number
 	{
-        bool tempbool;
-        for (int i = 0; i++; i < 10)
+		for (int i = 0; i <10;i++)
             if(missions[i])
                 tempbool = true;//Checks if any of the missions are in progress
 
@@ -121,11 +120,12 @@ public class DialogueScript : MonoBehaviour
 
                     break;
                 }
+			return 0;
         }
-        return null;
+		return 0;
 	}
 	// Update is called once per frame
-	public bool Update () 
+	public bool theUpdate () 
 	{
         return ScrollWheelInput();        
 	}
@@ -150,7 +150,7 @@ public class DialogueScript : MonoBehaviour
         }
         return false;
     }
-    bool ScrollWheelInput()
+    public bool ScrollWheelInput()
     {
         if(Input.GetButtonDown("[Y]")) //Y and N keys for placeholders, not sure what key is prefered
             bYesNo = true;
@@ -161,4 +161,4 @@ public class DialogueScript : MonoBehaviour
         
         return false;
     }
-}
+}*/

@@ -2,28 +2,30 @@
 using System.Collections;
 
 public class AnimationScript : MonoBehaviour {
-
+	public static AnimationScript Instance;
 // Use this for initialization
     public int columns = 8;
     public int rows = 1;
     public float framesPerSecond = 10.0f;
- 
+
     //the current frame to display
     private int index = 0;
  
     void Start()
     {
-        StartCoroutine(updateTiling());
+		Instance = this;
+        //StartCoroutine(updateTiling());
  
         //set the tile size of the texture (in UV units), based on the rows and columns
         Vector2 size = new Vector2(1f / columns, 1f / rows);
         renderer.sharedMaterial.SetTextureScale("_MainTex", size);
     }
  
-    private IEnumerator updateTiling()
+    public IEnumerator updateTiling()
     {
         while (true)
         {
+		
             //move to the next index
             index++;
             if (index >= rows * columns)
@@ -36,7 +38,8 @@ public class AnimationScript : MonoBehaviour {
             renderer.sharedMaterial.SetTextureOffset("_MainTex", offset);
  
             yield return new WaitForSeconds(1f / framesPerSecond);
-        }
+			}
+        
  
     }
 }

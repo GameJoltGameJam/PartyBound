@@ -1,9 +1,9 @@
-﻿using UnityEngine;
+﻿/*using UnityEngine;
 using System.Collections;
 
-public class tempPlayerScript : MonoBehaviour
+public class tempPlayerScriptExperimental : MonoBehaviour
 {
-	private tempPlayerScript Instance;
+	private tempPlayerScriptExperimental Instance;
 	private DialogueScript dialogue;
 	private GameObject dialogueObject;
    	public RaycastHit hit;
@@ -19,7 +19,7 @@ public class tempPlayerScript : MonoBehaviour
     {
 		Instance = this;
 		dialogueObject = GameObject.FindGameObjectWithTag("chatObject");
-		//dialogue = dialogueObject.GetComponent<DialogueScript>();
+		dialogue = dialogueObject.GetComponent<DialogueScriptExperimental>();
 		direction = this.transform.position;
 		camera.transform.position = new Vector3(0,80,-10);
 		inMission = talking = false;
@@ -73,15 +73,15 @@ public class tempPlayerScript : MonoBehaviour
                         //    Missions[0] = true;
 							
                         //}
-                        int iTempInt = NULL;
+                        int iTempInt = 0;
                         bool TemporaryBool = true;
                         
                         //Automatically 'should' check missions/npc automatically
                         
-                        while (!dialogue.Update())//Not 100% sure if while loop is appropriate here
+                        while (!dialogue.)//Not 100% sure if while loop is appropriate here
                         {                           //This loop lasts untill something is clicked
                             iTempInt = dialogue.StartDialogue(hit.transform.name, Missions);//Temp int is the Mission Number to be Accepted
-                            if( iTempInt != NULL)
+                            if( iTempInt != 0)
                             {  
                                 if(Mission[iTempInt])//if Start dialogue returned a value of a mission in progress, taht means its completed, so set it to false
                                     Mission[iTempInt] = false;
@@ -98,7 +98,7 @@ public class tempPlayerScript : MonoBehaviour
 				}
 		 	}
 		}
-	
+		}
 		this.transform.position = new Vector3(this.transform.position.x, this.transform.position.y, -0.6f);
 		this.transform.rotation = new Quaternion(0, 0,this.transform.rotation.z ,0);
 		
@@ -325,4 +325,4 @@ public class tempPlayerScript : MonoBehaviour
 			Teleport(other.transform.name);
 		}
 	}
-}
+}*/

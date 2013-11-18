@@ -5,6 +5,7 @@ public class tempPlayerScript : MonoBehaviour
 {
 	private tempPlayerScript Instance;
 	private DialogueScript dialogue;
+	private AnimationScript animation;
 	private GameObject dialogueObject;
    	public RaycastHit hit;
     public Ray ray;
@@ -19,7 +20,8 @@ public class tempPlayerScript : MonoBehaviour
     {
 		Instance = this;
 		dialogueObject = GameObject.FindGameObjectWithTag("chatObject");
-		//dialogue = dialogueObject.GetComponent<DialogueScript>();
+		dialogue = dialogueObject.GetComponent<DialogueScript>();
+		animation = this.GetComponent<AnimationScript>();
 		direction = this.transform.position;
 		camera.transform.position = new Vector3(0,80,-10);
 		inMission = talking = false;
@@ -37,18 +39,23 @@ public class tempPlayerScript : MonoBehaviour
 		
 	   	if(Input.GetMouseButton(0))
    	   	{
+			animation.StartCoroutine_Auto(animation.updateTiling());
+			if(!talking)
+			{
         	ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        	if(Physics.Raycast (ray, out hit, 20))
-         	{         
-            	direction = new Vector3(hit.point.x, hit.point.y, -0.6f);	 
-            	this.transform.position = Vector3.MoveTowards(this.transform.position, hit.point, moveSpeed * Time.deltaTime);
-              	Debug.DrawLine(this.transform.position, hit.point, Color.blue, 2);
- 	            Vector3 targetPoint = hit.point;
+        		if(Physics.Raycast (ray, out hit, 20))
+         		{         
+            		direction = new Vector3(hit.point.x, hit.point.y, -0.6f);	 
+            		this.transform.position = Vector3.MoveTowards(this.transform.position, hit.point, moveSpeed * Time.deltaTime);
+              		Debug.DrawLine(this.transform.position, hit.point, Color.blue, 2);
+ 	            	Vector3 targetPoint = hit.point;
 					//player rotate code... 
-                Quaternion targetRotation = Quaternion.LookRotation(targetPoint - this.transform.position);
-                this.transform.rotation = Quaternion.Slerp(this.transform.rotation, targetRotation, rotateSpeed * Time.deltaTime);
-    		    targetPoint.y = 0;
-         	}
+                //Quaternion targetRotation = Quaternion.LookRotation(this.transform.position - hit.point);
+                //this.transform.rotation = Quaternion.Slerp(this.transform.rotation, targetRotation, rotateSpeed * Time.deltaTime);
+    		    //targetPoint.y = 0;
+         		}
+			}
+			animation.StopAllCoroutines();
       	}
 		
 		if(Input.GetMouseButtonDown(1))
@@ -58,22 +65,27 @@ public class tempPlayerScript : MonoBehaviour
        		{         
  				Debug.DrawLine(this.transform.position, hit.point, Color.red, 2);
 				float dis = Vector3.Distance(this.transform.position, hit.transform.position);
-				if(dis < 3)
+				if(dis < 4)
 				{
-					if(hit.transform.tag == "NPC")
+					
+					if(hit.collider.tag == "NPC")
 					{
+						
+
 						talking = true;
 						if(inMission)
 						{
+
 							dialogue.autoResponse();
+							
 						}
-						if(hit.transform.name == "NPC1" && Missions[0] == false)
+						else if(hit.transform.name == "NPC1" && Missions[0] == false)
 						{
 							dialogue.StartDialogue("NPC1");
 							Missions[0] = true;
 							
 						}
-						talking = false;
+					
 					}
 					if(hit.transform.tag == "Object")
 					{
@@ -83,229 +95,230 @@ public class tempPlayerScript : MonoBehaviour
 		 	}
 		}
 	
-		this.transform.position = new Vector3(this.transform.position.x, this.transform.position.y, -0.6f);
-		this.transform.rotation = new Quaternion(0, 0,this.transform.rotation.z ,0);
+	
 		
  	}
 	void Teleport(string name)
 	{
 		switch(name)
 		{
-		case "1":
-		{
-			this.transform.position = new Vector3(0,51,-0.6f);
-			camera.enabled = false;
-			camera.transform.position = new Vector3(0,40,-10);
-			camera.enabled = true;
-			break;
-		}
-		case "2":
-		{
-			this.transform.position = new Vector3(3,67,-0.6f);
-			camera.enabled = false;
-			camera.transform.position = new Vector3(0,80,-10);
-			camera.enabled = true;
-			break;
-		}
-		case "3":
-		{
-			this.transform.position = new Vector3(0,12,-0.6f);
-			camera.enabled = false;
-			camera.transform.position = new Vector3(0,0,-10);
-			camera.enabled = true;
-			break;
-		}
-		case "4":
-		{
-			this.transform.position = new Vector3(0,26,-0.6f);
-			camera.enabled = false;
-			camera.transform.position = new Vector3(0,40,-10);
-			camera.enabled = true;
-			break;
-		}
-		case "5":
-		{
-			this.transform.position = new Vector3(0,-27,-0.6f);
-			camera.enabled = false;
-			camera.transform.position = new Vector3(0,-40,-10);
-			camera.enabled = true;
-			break;
-		}
-		case "6":
-		{
-			this.transform.position = new Vector3(-27,0,-0.6f);
-			camera.enabled = false;
-			camera.transform.position = new Vector3(-40,0,-10);
-			camera.enabled = true;
-			break;
-		}
-		case "7":
-		{
-			this.transform.position = new Vector3(27,0,-0.6f);
-			camera.enabled = false;
-			camera.transform.position = new Vector3(40,0,-10);
-			camera.enabled = true;
-			break;
-		}
-		case "8":
-		{
-			this.transform.position = new Vector3(0,-12,-0.6f);
-			camera.enabled = false;
-			camera.transform.position = new Vector3(0,0,-10);
-			camera.enabled = true;
-			break;
-		}
-		case "9":
-		{
-			this.transform.position = new Vector3(-13,0,-0.6f);
-			camera.enabled = false;
-			camera.transform.position = new Vector3(0,0,-10);
-			camera.enabled = true;
-			break;
-		}
-		case "10":
-		{
-			this.transform.position = new Vector3(-67,3,-0.6f);
-			camera.enabled = false;
-			camera.transform.position = new Vector3(-80,0,-10);
-			camera.enabled = true;
-			break;
-		}
-		case "11":
-		{
-			this.transform.position = new Vector3(-53,0,-0.6f);
-			camera.enabled = false;
-			camera.transform.position = new Vector3(-40,0,-10);
-			camera.enabled = true;
-			break;
-		}
-		case "12":
-		{
-			this.transform.position = new Vector3(12,0,-0.6f);
-			camera.enabled = false;
-			camera.transform.position = new Vector3(0,0,-10);
-			camera.enabled = true;
-			break;
-		}
-		case "13":
-		{
-			this.transform.position = new Vector3(68.5f,0,-0.6f);
-			camera.enabled = false;
-			camera.transform.position = new Vector3(80,0,-10);
-			camera.enabled = true;
-			break;
-		}
-		case "14":
-		{
-			this.transform.position = new Vector3(53,7,-0.6f);
-			camera.enabled = false;
-			camera.transform.position = new Vector3(40,0,-10);
-			camera.enabled = true;
-			break;
-		}	
-		case "15":
-		{
-			this.transform.position = new Vector3(107,0,-0.6f);
-			camera.enabled = false;
-			camera.transform.position = new Vector3(120,0,-10);
-			camera.enabled = true;
-			break;
-		}
-		case "16":
-		{
-			this.transform.position = new Vector3(93,0,-0.6f);
-			camera.enabled = false;
-			camera.transform.position = new Vector3(80,0,-10);
-			camera.enabled = true;
-			break;
-		}
-		case "17":
-		{
-			this.transform.position = new Vector3(80,27,-0.6f);
-			camera.enabled = false;
-			camera.transform.position = new Vector3(80,40,-10);
-			camera.enabled = true;
-			break;
-		}
-		case "18":
-		{
-			this.transform.position = new Vector3(80,13,-0.6f);
-			camera.enabled = false;
-			camera.transform.position = new Vector3(80,0,-10);
-			camera.enabled = true;
-			break;
-		}
-		case "19":
-		{
-			this.transform.position = new Vector3(83,67,-0.6f);
-			camera.enabled = false;
-			camera.transform.position = new Vector3(80,80,-10);
-			camera.enabled = true;
-			break;
-		}
-		case "20":
-		{
-			this.transform.position = new Vector3(80,52,-0.6f);
-			camera.enabled = false;
-			camera.transform.position = new Vector3(80,40,-10);
-			camera.enabled = true;
-			break;
-		}
-		case "21":
-		{
-			this.transform.position = new Vector3(78,-27,-0.6f);
-			camera.enabled = false;
-			camera.transform.position = new Vector3(80,-40,-10);
-			camera.enabled = true;
-			break;
-		}
-		case "22":
-		{
-			this.transform.position = new Vector3(80,-13,-0.6f);
-			camera.enabled = false;
-			camera.transform.position = new Vector3(80,0,-10);
-			camera.enabled = true;
-			break;
-		}
-		case "23":
-		{
-			this.transform.position = new Vector3(4,-67,-0.6f);
-			camera.enabled = false;
-			camera.transform.position = new Vector3(0,-80,-10);
-			camera.enabled = true;
-			break;
-		}
-		case "24":
-		{
-			this.transform.position = new Vector3(0,-53,-0.6f);
-			camera.enabled = false;
-			camera.transform.position = new Vector3(0,-40,-10);
-			camera.enabled = true;
-			break;
-		}	
-		case "25":
-		{
-			this.transform.position = new Vector3(67,40,-0.6f);
-			camera.enabled = false;
-			camera.transform.position = new Vector3(80,40,-10);
-			camera.enabled = true;
-			break;
-		}	
-		case "26":
-		{
-			this.transform.position = new Vector3(13,40,-0.6f);
-			camera.enabled = false;
-			camera.transform.position = new Vector3(0,40,-10);
-			camera.enabled = true;
-			break;
-		}		
-		}
+			case "1":
+			{
+				this.transform.position = new Vector3(0,51,-0.6f);
+				camera.enabled = false;
+				camera.transform.position = new Vector3(0,40,-10);
+				camera.enabled = true;
+				break;
+			}
+			case "2":
+			{
+				this.transform.position = new Vector3(3,67,-0.6f);
+				camera.enabled = false;
+				camera.transform.position = new Vector3(0,80,-10);
+				camera.enabled = true;
+				break;
+			}
+			case "3":
+			{
+				this.transform.position = new Vector3(0,12,-0.6f);
+				camera.enabled = false;
+				camera.transform.position = new Vector3(0,0,-10);
+				camera.enabled = true;
+				break;
+			}
+			case "4":
+			{
+				this.transform.position = new Vector3(0,26,-0.6f);
+				camera.enabled = false;
+				camera.transform.position = new Vector3(0,40,-10);
+				camera.enabled = true;
+				break;
+			}
+			case "5":
+			{
+				this.transform.position = new Vector3(0,-27,-0.6f);
+				camera.enabled = false;
+				camera.transform.position = new Vector3(0,-40,-10);
+				camera.enabled = true;
+				break;
+			}
+			case "6":
+			{
+				this.transform.position = new Vector3(-27,0,-0.6f);
+				camera.enabled = false;
+				camera.transform.position = new Vector3(-40,0,-10);
+				camera.enabled = true;
+				break;
+			}
+			case "7":
+			{
+				this.transform.position = new Vector3(27,0,-0.6f);
+				camera.enabled = false;
+				camera.transform.position = new Vector3(40,0,-10);
+				camera.enabled = true;
+				break;
+			}
+			case "8":
+			{
+				this.transform.position = new Vector3(0,-12,-0.6f);
+				camera.enabled = false;
+				camera.transform.position = new Vector3(0,0,-10);
+				camera.enabled = true;
+				break;
+			}
+			case "9":
+			{
+				this.transform.position = new Vector3(-13,0,-0.6f);
+				camera.enabled = false;
+				camera.transform.position = new Vector3(0,0,-10);
+				camera.enabled = true;
+				break;
+			}
+			case "10":
+			{
+				this.transform.position = new Vector3(-67,3,-0.6f);
+				camera.enabled = false;
+				camera.transform.position = new Vector3(-80,0,-10);
+				camera.enabled = true;
+				break;
+			}
+			case "11":
+			{
+				this.transform.position = new Vector3(-53,0,-0.6f);
+				camera.enabled = false;
+				camera.transform.position = new Vector3(-40,0,-10);
+				camera.enabled = true;
+				break;
+			}	
+			case "12":
+			{
+				this.transform.position = new Vector3(12,0,-0.6f);
+				camera.enabled = false;
+				camera.transform.position = new Vector3(0,0,-10);
+				camera.enabled = true;
+				break;
+			}
+			case "13":
+			{
+				this.transform.position = new Vector3(68.5f,0,-0.6f);
+				camera.enabled = false;
+				camera.transform.position = new Vector3(80,0,-10);
+				camera.enabled = true;
+				break;
+			}
+			case "14":
+			{
+				this.transform.position = new Vector3(53,7,-0.6f);
+				camera.enabled = false;
+				camera.transform.position = new Vector3(40,0,-10);
+				camera.enabled = true;
+				break;
+			}	
+			case "15":
+			{
+				this.transform.position = new Vector3(107,0,-0.6f);
+				camera.enabled = false;
+				camera.transform.position = new Vector3(120,0,-10);
+				camera.enabled = true;
+				break;
+			}	
+			case "16":
+			{
+				this.transform.position = new Vector3(93,0,-0.6f);
+				camera.enabled = false;
+				camera.transform.position = new Vector3(80,0,-10);
+				camera.enabled = true;
+				break;
+			}
+			case "17":
+			{
+				this.transform.position = new Vector3(80,27,-0.6f);
+				camera.enabled = false;
+				camera.transform.position = new Vector3(80,40,-10);
+				camera.enabled = true;
+				break;
+			}
+			case "18":
+			{
+				this.transform.position = new Vector3(80,13,-0.6f);
+				camera.enabled = false;
+				camera.transform.position = new Vector3(80,0,-10);
+				camera.enabled = true;
+				break;
+			}
+			case "19":
+			{
+				this.transform.position = new Vector3(83,67,-0.6f);
+				camera.enabled = false;
+				camera.transform.position = new Vector3(80,80,-10);
+				camera.enabled = true;
+				break;
+			}
+			case "20":
+			{
+				this.transform.position = new Vector3(80,52,-0.6f);
+				camera.enabled = false;
+				camera.transform.position = new Vector3(80,40,-10);
+				camera.enabled = true;
+				break;
+			}
+			case "21":
+			{
+				this.transform.position = new Vector3(78,-27,-0.6f);
+				camera.enabled = false;
+				camera.transform.position = new Vector3(80,-40,-10);
+				camera.enabled = true;
+				break;
+			}
+			case "22":
+			{
+				this.transform.position = new Vector3(80,-13,-0.6f);
+				camera.enabled = false;
+				camera.transform.position = new Vector3(80,0,-10);
+				camera.enabled = true;
+				break;
+			}
+			case "23":
+			{
+				this.transform.position = new Vector3(4,-67,-0.6f);
+				camera.enabled = false;
+				camera.transform.position = new Vector3(0,-80,-10);
+				camera.enabled = true;
+				break;
+			}
+			case "24":
+			{
+				this.transform.position = new Vector3(0,-53,-0.6f);
+				camera.enabled = false;
+				camera.transform.position = new Vector3(0,-40,-10);
+				camera.enabled = true;
+				break;
+			}	
+			case "25":
+			{
+				this.transform.position = new Vector3(67,40,-0.6f);
+				camera.enabled = false;
+				camera.transform.position = new Vector3(80,40,-10);
+				camera.enabled = true;
+				break;
+				}	
+				case "26":
+				{
+					this.transform.position = new Vector3(13,40,-0.6f);
+					camera.enabled = false;
+					camera.transform.position = new Vector3(0,40,-10);
+					camera.enabled = true;
+					break;
+				}		
+			}
 			
 	}
 	void OnTriggerEnter(Collider other)
 	{
-		if(other.tag == "JumpObjects")
+		print ("hit something");
+		if(other.gameObject.tag == "JumpObjects")
 		{
+			print ("Hit teleporter");
 			Teleport(other.transform.name);
 		}
 	}
