@@ -4,7 +4,7 @@ using System.Collections;
 public class DrewPlayer : MonoBehaviour
 {
 	private DrewPlayer Instance;
-	private DialogueScript dialogue;
+	private DrewDialogueScript dialogue;
 	private AnimationScript animation;
 	private GameObject dialogueObject;
 	public RaycastHit hit;
@@ -22,7 +22,7 @@ public class DrewPlayer : MonoBehaviour
 	{
 		Instance = this;
 		dialogueObject = GameObject.FindGameObjectWithTag("chatObject");
-		dialogue = dialogueObject.GetComponent<DialogueScript>();
+		dialogue = dialogueObject.GetComponent<DrewDialogueScript>();
 		animation = this.GetComponent<AnimationScript>();
 		direction = this.transform.position;
 		camera.transform.position = new Vector3(0,80,-10);
@@ -85,7 +85,7 @@ public class DrewPlayer : MonoBehaviour
 			{         
 				Debug.DrawLine(this.transform.position, hit.point, Color.red, 2);
 				float dis = Vector3.Distance(this.transform.position, hit.transform.position);
-				if(dis < 4)
+				if(dis < 200)
 				{
 					
 					if(hit.collider.tag == "NPC")
@@ -102,10 +102,11 @@ public class DrewPlayer : MonoBehaviour
 						else if(hit.transform.name == "NPC1" && Missions[0] == false)
 						{
 							dialogue.StartDialogue("NPC1");
+
 							Missions[0] = true;
 							
 						}
-						
+
 					}
 					if(hit.transform.tag == "Object")
 					{
@@ -113,7 +114,7 @@ public class DrewPlayer : MonoBehaviour
 					}
 				}
 			}
-		}		
+		}
 	}
 	void Teleport(string name)
 	{
