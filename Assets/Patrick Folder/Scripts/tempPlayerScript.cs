@@ -13,6 +13,7 @@ public class tempPlayerScript : MonoBehaviour
     public float moveSpeed = 0.1f;
     public int rotateSpeed =50;
  	public Camera camera;
+	private string name;
  	public bool inMission, talking, getchat;
 	public bool [] Missions;
     // Use this for initialization
@@ -26,6 +27,7 @@ public class tempPlayerScript : MonoBehaviour
 		camera.transform.position = new Vector3(0,80,-10);
 		inMission = talking = getchat = false;
 		Missions = new bool [10];
+		name = null;
 	    for (int i= 0; i < 9; i++) 
 		{
 	    	Missions[i] = false;
@@ -79,8 +81,16 @@ public class tempPlayerScript : MonoBehaviour
 						else if(hit.transform.name == "NPC1" && Missions[0] == false)
 						{
 							dialogue.playerMessage ();
+							name = "NPC1";
 							getchat = true;
 
+						}
+						else if(hit.transform.name == "NPC2" && Missions[1] == false)
+						{
+							dialogue.playerMessage ();
+							name = "NPC2";
+							getchat = true;
+							
 						}
 					}
 				}
@@ -92,7 +102,7 @@ public class tempPlayerScript : MonoBehaviour
 		}
 		if(getchat)
 		{
-		dialogue.StartDialogue("NPC1");
+		dialogue.StartDialogue(name);
 				
 		}
 	}

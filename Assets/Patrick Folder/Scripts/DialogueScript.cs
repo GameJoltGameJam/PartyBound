@@ -85,13 +85,19 @@ public class DialogueScript : MonoBehaviour
 
 			case "NPC1":
 			{
-			if (current > end)
-			{
-				print ("calling");
-				npc1 = npc1O.GetComponent<Npc1Script>();
-				npc1.GetMission();
+				if (current > end)
+				{
+					npc1 = npc1O.GetComponent<Npc1Script>();
+					npc1.GetMission();
+				}
+				break;
 			}
-			break;
+			case "NPC2":
+			{
+				if(current > end)
+				{
+						
+				}
 			}
 		}
 
